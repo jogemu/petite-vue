@@ -116,7 +116,7 @@ createApp({
 
 ### Lifecycle Events
 
-You can listen to the special `vue:mounted` and `vue:unmounted` lifecycle events for each element (the `vue:` prefix is required since v0.4.0):
+You can listen to the special `vue:mounted` and `vue:unmounted` lifecycle events for each element:
 
 ```html
 <div
@@ -296,7 +296,7 @@ const html = ({ el, get, effect }) => {
 }
 ```
 
-### Custom Delimiters (0.3+)
+### Custom Delimiters
 
 You can use custom delimiters by passing `$delimiters` to your root scope. This is useful when working alongside a server-side templating language that also uses mustaches:
 
