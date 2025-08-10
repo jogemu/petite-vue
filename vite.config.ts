@@ -2,12 +2,9 @@ import { defineConfig } from 'vite'
 import { resolve } from 'path'
 
 export default defineConfig({
-  esbuild: {
-    minify: true
-  },
   build: {
     target: 'esnext',
-    minify: 'terser',
+    minify: 'esbuild',
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'PetiteVue',
@@ -27,5 +24,8 @@ export default defineConfig({
         }
       ]
     }
+  },
+  define: {
+    'process.env.NODE_ENV': '"production"'
   }
 })

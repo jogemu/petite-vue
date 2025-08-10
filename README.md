@@ -2,14 +2,14 @@
 
 `petite-vue` is an alternative distribution of [Vue](https://vuejs.org) optimized for [progressive enhancement](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement). It provides the same template syntax and reactivity mental model as standard Vue. However, it is specifically optimized for "sprinkling" a small amount of interactions on an existing HTML page rendered by a server framework. See more details on [how it differs from standard Vue](#comparison-with-standard-vue).
 
-- Only ~6kb
+- Only ~9kb
 - Vue-compatible template syntax
 - DOM-based, mutates in place
 - Driven by `@vue/reactivity`
 
 ## Status
 
-- This is pretty new. There are probably bugs and there might still be API changes, so **use at your own risk.** Is it usable though? Very much. Check out the [examples](https://github.com/vuejs/petite-vue/tree/main/examples) to see what it's capable of.
+- There are probably bugs and there might still be API changes, so **use at your own risk.** Is it usable though? Very much. Check out the [examples](https://github.com/vuejs/petite-vue/tree/main/examples) to see what it's capable of.
 
 - The issue list is intentionally disabled because I have higher priority things to focus on for now and don't want to be distracted. If you found a bug, you'll have to either workaround it or submit a PR to fix it yourself. That said, feel free to use the discussions tab to help each other out.
 
@@ -35,7 +35,7 @@
 
 ### Manual Init
 
-If you don't want the auto init, remove the `init` attribute and move the scripts to end of `<body>`:
+If you don't want the auto init, remove the `init` attribute and move the scripts to the end of `<body>`:
 
 ```html
 <script src="https://unpkg.com/petite-vue"></script>
@@ -57,9 +57,9 @@ Or, use the ES module build:
 
 The short CDN URL is meant for prototyping. For production usage, use a fully resolved CDN URL to avoid resolving and redirect cost:
 
-- Global build: `https://unpkg.com/petite-vue@0.2.2/dist/petite-vue.iife.js`
-  - exposes `PetiteVue` global, supports auto init
-- ESM build: `https://unpkg.com/petite-vue@0.2.2/dist/petite-vue.es.js`
+- Global build: `https://unpkg.com/petite-vue@0.5.0/dist/petite-vue.iife.js`
+  - exposes `PetiteVue` globally, supports auto init
+- ESM build: `https://unpkg.com/petite-vue@0.5.0/dist/petite-vue.es.js`
   - Must be used with `<script type="module">`
 
 ### Root Scope
@@ -92,7 +92,7 @@ The `createApp` function accepts a data object that serves as the root scope for
 </div>
 ```
 
-Note `v-scope` doesn't need to have a value here and simply serves as a hint for `petite-vue` to process the element.
+Note: `v-scope` doesn't need to have a value here and simply serves as a hint for `petite-vue` to process the element.
 
 ### Explicit Mount Target
 
@@ -147,7 +147,7 @@ Another example of replacing the `todo-focus` directive found in the original Vu
 
 ### Components
 
-The concept of "Components" are different in `petite-vue`, as it is much more bare-bones.
+The concept of "Components" is different in `petite-vue`, as it is much more bare-bones.
 
 First, reusable scope logic can be created with functions:
 
@@ -347,7 +347,7 @@ Check out the [examples directory](https://github.com/vuejs/petite-vue/tree/main
 
 Some features are dropped because they have a relatively low utility/size ratio in the context of progressive enhancement. If you need these features, you should probably just use standard Vue.
 
-- `ref()`, `computed()` etc.
+- `ref()`, `computed()`, etc.
 - Render functions (`petite-vue` has no virtual DOM)
 - Reactivity for Collection Types (Map, Set, etc., removed for smaller size)
 - Transition, KeepAlive, Teleport, Suspense
@@ -360,7 +360,7 @@ Some features are dropped because they have a relatively low utility/size ratio 
 
 The point of `petite-vue` is not just about being small. It's about using the optimal implementation for the intended use case (progressive enhancement).
 
-Standard Vue can be used with or without a build step. When using a build setup (e.g. with Single-File Components), we pre-compile all the templates so there's no template processing to be done at runtime. And thanks to tree-shaking, we can ship optional features in standard Vue that doesn't bloat your bundle size when not used. This is the optimal usage of standard Vue, but since it involves a build setup, it is better suited when building SPAs or apps with relatively heavy interactions.
+Standard Vue can be used with or without a build step. When using a build setup (e.g. with Single-File Components), we pre-compile all the templates so there's no template processing to be done at runtime. And thanks to tree-shaking, we can ship optional features in standard Vue that don't bloat your bundle size when not used. This is the optimal usage of standard Vue, but since it involves a build setup, it is better suited when building SPAs or apps with relatively heavy interactions.
 
 When using standard Vue without a build step and mounting to in-DOM templates, it is much less optimal because:
 
@@ -371,7 +371,7 @@ When using standard Vue without a build step and mounting to in-DOM templates, i
 
 `petite-vue` avoids all this overhead by walking the existing DOM and attaching fine-grained reactive effects to the elements directly. The DOM _is_ the template. This means `petite-vue` is much more efficient in progressive enhancement scenarios.
 
-This is also how Vue 1 worked. The trade-off here is that this approach is coupled to the DOM and thus not suitable for platform agnostic rendering or JavaScript SSR. We also lose the ability to work with render functions for advanced abstractions. However as you can probably tell, these capabilities are rarely needed in the context of progressive enhancement.
+This is also how Vue 1 worked. The trade-off here is that this approach is coupled to the DOM and thus not suitable for platform agnostic rendering or JavaScript SSR. We also lose the ability to work with render functions for advanced abstractions. However, as you can probably tell, these capabilities are rarely needed in the context of progressive enhancement.
 
 ## Comparison with Alpine
 
@@ -389,7 +389,7 @@ This is also how Vue 1 worked. The trade-off here is that this approach is coupl
 
 `petite-vue` evaluates JavaScript expressions in the templates. This means **if** `petite-vue` is mounted on a region of the DOM that contains non-sanitized HTML from user data, it may lead to XSS attacks. **If your page renders user-submitted HTML, you should prefer initializing `petite-vue` using [explicit mount target](#explicit-mount-target) so that it only processes parts that are controlled by you**. You can also sanitize any user-submitted HTML for the `v-scope` attribute.
 
-`petite-vue` evaluates the expressions using `new Function()`, which may be prohibited in strict CSP settings. There is no plan to provide a CSP build because it involves shipping an expression parser which defeats the purpose of being lightweight. If you have strict CSP requirements, you should probably use standard Vue and pre-compile the templates.
+`petite-vue` evaluates the expressions using `new Function()`, which may be prohibited in strict CSP settings. There is no plan to provide a CSP build because it involves shipping an expression parser, which defeats the purpose of being lightweight. If you have strict CSP requirements, you should probably use standard Vue and pre-compile the templates.
 
 ## License
 

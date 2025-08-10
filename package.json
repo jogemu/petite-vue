@@ -1,7 +1,8 @@
 {
   "name": "petite-vue",
-  "version": "0.4.1",
-  "description": "5kb subset of Vue optimized for progressive enhancement",
+  "version": "0.5.0",
+  "description": "9kb subset of Vue optimized for progressive enhancement",
+  "type": "module",
   "files": [
     "dist"
   ],
@@ -12,13 +13,14 @@
   "exports": {
     ".": {
       "import": "./dist/petite-vue.es.js",
+      "types": "./dist/types/index.d.ts",
       "require": "./dist/petite-vue.umd.js"
     }
   },
   "types": "./dist/types/index.d.ts",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && tsc --emitDeclarationOnly && mv dist/src dist/types",
+    "build": "vite build && tsc",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "release": "node scripts/release.js"
   },
@@ -36,15 +38,15 @@
   },
   "homepage": "https://github.com/vuejs/petite-vue#readme",
   "devDependencies": {
-    "@vue/reactivity": "^3.2.27",
-    "@vue/shared": "^3.2.27",
-    "chalk": "^4.1.1",
-    "conventional-changelog-cli": "^2.1.1",
-    "enquirer": "^2.3.6",
-    "execa": "^5.0.0",
-    "prettier": "^2.3.0",
-    "semver": "^7.3.5",
-    "typescript": "^4.4.3",
-    "vite": "^2.7.12"
+    "@vue/reactivity": "^3.5.18",
+    "@vue/shared": "^3.5.18",
+    "chalk": "^5.5.0",
+    "conventional-changelog-cli": "^5.0.0",
+    "enquirer": "^2.4.1",
+    "execa": "^9.6.0",
+    "prettier": "^3.6.2",
+    "semver": "^7.7.2",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.1"
   }
 }
