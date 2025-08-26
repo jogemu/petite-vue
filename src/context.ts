@@ -64,6 +64,7 @@ export const createScopedContext = (ctx: Context, data = {}): Context => {
   )
 
   bindContextMethods(reactiveProxy)
+  Object.keys(data).forEach(k => Promise.resolve(reactiveProxy[k]).then(v => reactiveProxy[k] = v))
   return {
     ...ctx,
     scope: reactiveProxy
