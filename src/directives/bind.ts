@@ -96,6 +96,7 @@ const setProp = (
     } else if (key === 'false-value') {
       ;(el as any)._falseValue = value
     } else if (value != null) {
+      if(el instanceof SVGElement && key == 'viewbox') key = 'viewBox'
       el.setAttribute(key, value)
     } else {
       el.removeAttribute(key)

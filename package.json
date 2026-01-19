@@ -1,6 +1,6 @@
 {
   "name": "@jogemu/petite-vue",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "9kb subset of Vue optimized for progressive enhancement",
   "keywords": [
     "vue",
